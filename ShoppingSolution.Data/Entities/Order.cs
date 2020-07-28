@@ -1,4 +1,4 @@
-﻿=using ShoppingSolution.Data.Enums;
+﻿using ShoppingSolution.Data.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,6 +16,5 @@ namespace ShoppingSolution.Data.Entities
         public string ShipPhoneNumber { set; get; }
         public OrderStatus Status { set; get; }
         public List<OrderDetail> OrderDetails { get; set; }
-        public AppUser AppUser { get; set; }
     }
 }

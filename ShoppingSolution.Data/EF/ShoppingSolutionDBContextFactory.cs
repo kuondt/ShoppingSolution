@@ -8,7 +8,7 @@ using System.Text;
 
 namespace ShoppingSolution.Data.EF
 {
-    class ShoppingSolutionDBContextFactory : IDesignTimeDbContextFactory<ShoppingDBContext>
+    public class ShoppingSolutionDBContextFactory : IDesignTimeDbContextFactory<ShoppingDBContext>
     {
         public ShoppingDBContext CreateDbContext(string[] args)
         {
