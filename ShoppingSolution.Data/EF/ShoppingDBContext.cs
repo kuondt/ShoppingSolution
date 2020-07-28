@@ -1,6 +1,7 @@
 ﻿using ShoppingSolution.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using ShoppingSolution.Data.Configurations;
+using ShoppingSolution.Data.Extensions;
 
 namespace ShoppingSolution.Data.EF
 {
@@ -12,13 +13,13 @@ namespace ShoppingSolution.Data.EF
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //Configuation using Fluent API
             modelBuilder.ApplyConfiguration(new AppConfigConfiguration());
             modelBuilder.ApplyConfiguration(new ProductConfiguaration());
             modelBuilder.ApplyConfiguration(new CategoryConfiguaration());
             modelBuilder.ApplyConfiguration(new ProductInCategoryConfiguaration());
             modelBuilder.ApplyConfiguration(new OrderConfiguaration());
             modelBuilder.ApplyConfiguration(new OrderDetailConfiguaration());
-
             modelBuilder.ApplyConfiguration(new CartConfiguration());
             modelBuilder.ApplyConfiguration(new CategoryTranslationConfiguration());
             modelBuilder.ApplyConfiguration(new ContactConfiguration());
@@ -27,8 +28,8 @@ namespace ShoppingSolution.Data.EF
             modelBuilder.ApplyConfiguration(new PromotionConfiguration());
             modelBuilder.ApplyConfiguration(new TransactionConfiguration());
 
-
-
+            //Database seeding
+            modelBuilder.Seed();
 
             //base.OnModelCreating(modelBuilder);
         }
