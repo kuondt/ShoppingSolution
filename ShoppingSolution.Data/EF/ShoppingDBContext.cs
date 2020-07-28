@@ -2,10 +2,13 @@
 using Microsoft.EntityFrameworkCore;
 using ShoppingSolution.Data.Configurations;
 using ShoppingSolution.Data.Extensions;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using System;
+using Microsoft.AspNetCore.Identity;
 
 namespace ShoppingSolution.Data.EF
 {
-    public class ShoppingDBContext : DbContext
+    public class ShoppingDBContext : IdentityDbContext<AppUser, AppRole, Guid>
     {
         public ShoppingDBContext(DbContextOptions options) : base(options)
         {
@@ -27,6 +30,15 @@ namespace ShoppingSolution.Data.EF
             modelBuilder.ApplyConfiguration(new ProductTranslationConfiguration());
             modelBuilder.ApplyConfiguration(new PromotionConfiguration());
             modelBuilder.ApplyConfiguration(new TransactionConfiguration());
+
+            //Config Identity
+            modelBuilder.ApplyConfiguration(new AppUserConfiguaration());
+            modelBuilder.ApplyConfiguration(new AppRoleConfiguaration());
+            modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("AppUserClaims");
+            modelBuilder.Entity<IdentityUserRole<Guid>>().ToTable("AppUserRoles").HasKey(x => new { x.UserId, x.RoleId});
+            modelBuilder.Entity<IdentityUserLogin<Guid>>().ToTable("AppUserLogins").HasKey(x => x.UserId);
+            modelBuilder.Entity<IdentityRoleClaim<Guid>>().ToTable("AppRoleClaims");
+            modelBuilder.Entity<IdentityUserToken<Guid>>().ToTable("AppUserTokens").HasKey(x => x.UserId);
 
             //Database seeding
             modelBuilder.Seed();
