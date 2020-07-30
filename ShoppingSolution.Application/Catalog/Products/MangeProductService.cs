@@ -1,4 +1,5 @@
 ﻿using ShoppingSolution.Application.Catalog.Products.Dtos;
+using ShoppingSolution.Application.Catalog.Products.Dtos.Manage;
 using ShoppingSolution.Application.Dtos;
 using ShoppingSolution.Data.EF;
 using ShoppingSolution.Data.Entities;
@@ -16,11 +17,37 @@ namespace ShoppingSolution.Application.Catalog.Products
         {
             _context = context;
         }
+
+        public async Task AddViewCount(int productId)
+        {
+            var product = await _context.Products.FindAsync(productId);
+            product.ViewCount += 1;
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<int> Create(ProductCreateRequest request)
         {
             var product = new Product()
             {
                 Price = request.Price,
+                OriginalPrice = request.OriginalPrice,
+                Stock = request.Stock,
+                ViewCount = 0,
+                DateCreated = DateTime.Now,
+                ProductTranslations = new List<ProductTranslation>()
+                {
+                    new ProductTranslation()
+                    {
+                        Name = request.Name,
+                        Description = request.Description,
+                        Details = request.Details,
+                        SeoDescription = request.SeoDescription,
+                        SeoAlias = request.SeoAlias,
+                        SeoTitle = request.SeoTitle,
+                        LanguageId = request.LanguageId,
+
+                    }
+                }
             };
             _context.Products.Add(product);
             return await _context.SaveChangesAsync();
@@ -28,20 +55,29 @@ namespace ShoppingSolution.Application.Catalog.Products
 
         public async Task<int> Delete(int productId)
         {
-            throw new NotImplementedException();
+            var product = await _context.Products.FindAsync(productId);
+            if(product == null) throw new
+            _context.Products.Remove(product);
+            await _context.SaveChangesAsync();
         }
 
-        public async Task<List<ProductViewModel>>  GetAll()
+
+        public Task<PagedResult<ProductViewModel>> GetAllPaging(GetProductPagingRequest request)
         {
             throw new NotImplementedException();
         }
 
-        public Task<PagedViewModel<ProductViewModel>> GetAllPaging(string keyword, int pageIndex, int Pagesize)
+        public Task<int> Update(ProductUpdateRequest request)
         {
             throw new NotImplementedException();
         }
 
-        public Task<int> Update(ProductEditRequest request)
+        public Task<bool> UpdatePrice(int productId, decimal newPrice)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> UpdateStock(int productId, int addQuantity)
         {
             throw new NotImplementedException();
         }

@@ -1,4 +1,5 @@
 ﻿using ShoppingSolution.Application.Catalog.Products.Dtos;
+using ShoppingSolution.Application.Catalog.Products.Dtos.Manage;
 using ShoppingSolution.Application.Dtos;
 using System;
 using System.Collections.Generic;
@@ -11,12 +12,18 @@ namespace ShoppingSolution.Application.Catalog.Products
     {
         Task<int> Create(ProductCreateRequest request);
 
-        Task<int> Update(ProductEditRequest request);
+        Task<int> Update(ProductUpdateRequest request);
 
         Task<int> Delete(int productId);
 
+        Task<bool> UpdatePrice(int productId, decimal newPrice);
+
+        Task<bool> UpdateStock(int productId, int addQuantity);
+
+        Task AddViewCount(int productId);
+
         Task<List<ProductViewModel>> GetAll();
 
-        Task<PagedViewModel<ProductViewModel>> GetAllPaging(String keyword, int pageIndex, int Pagesize);
+        Task<PagedResult<ProductViewModel>> GetAllPaging(GetProductPagingRequest request);
     }
 }
