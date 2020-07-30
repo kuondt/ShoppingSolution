@@ -10,6 +10,6 @@ namespace ShoppingSolution.Application.Catalog.Products.Dtos.Manage
     {
         public string Keyword { get; set; }
 
-        public List<int> CategoyIds { get; set; }
+        public List<int> CategoryIds { get; set; }
     }
 }
