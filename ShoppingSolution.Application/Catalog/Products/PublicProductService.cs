@@ -1,13 +1,13 @@
-﻿using ShoppingSolution.Application.Catalog.Products.Dtos;
-using ShoppingSolution.Application.Catalog.Products.Dtos.Public;
-using ShoppingSolution.Application.Dtos;
-using ShoppingSolution.Data.EF;
+﻿using ShoppingSolution.Data.EF;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using ShoppingSolution.ViewModels.Common;
+using ShoppingSolution.ViewModels.Catalog.Products;
+using ShoppingSolution.ViewModels.Catalog.Products.Public;
 
 namespace ShoppingSolution.Application.Catalog.Products
 {
@@ -65,5 +65,7 @@ namespace ShoppingSolution.Application.Catalog.Products
             };
             return pagedResult;
         }
+
+       
     }
 }

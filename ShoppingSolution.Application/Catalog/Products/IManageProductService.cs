@@ -1,6 +1,7 @@
-﻿using ShoppingSolution.Application.Catalog.Products.Dtos;
-using ShoppingSolution.Application.Catalog.Products.Dtos.Manage;
-using ShoppingSolution.Application.Dtos;
+﻿using Microsoft.AspNetCore.Http;
+using ShoppingSolution.ViewModels.Catalog.Products;
+using ShoppingSolution.ViewModels.Catalog.Products.Manage;
+using ShoppingSolution.ViewModels.Common;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -23,5 +24,13 @@ namespace ShoppingSolution.Application.Catalog.Products
         Task AddViewCount(int productId);
 
         Task<PagedResult<ProductViewModel>> GetAllPaging(GetProductPagingRequest request);
+
+        Task<int> AddImages(int productId, List<IFormFile> files);
+
+        Task<int> RemoveImages(int imageId);
+
+        Task<int> UpdateImage(int imageId, string caption, bool isDefault);
+
+        Task<List<ProductImageViewModel>> GetListImage(int productId);
     }
 }

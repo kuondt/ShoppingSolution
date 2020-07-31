@@ -1,6 +1,6 @@
-﻿using ShoppingSolution.Application.Catalog.Products.Dtos;
-using ShoppingSolution.Application.Catalog.Products.Dtos.Public;
-using ShoppingSolution.Application.Dtos;
+﻿using ShoppingSolution.ViewModels.Catalog.Products;
+using ShoppingSolution.ViewModels.Catalog.Products.Public;
+using ShoppingSolution.ViewModels.Common;
 using System;
 using System.Collections.Generic;
 using System.Text;

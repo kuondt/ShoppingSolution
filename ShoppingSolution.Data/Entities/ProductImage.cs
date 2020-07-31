@@ -20,7 +20,7 @@ namespace ShoppingSolution.Data.Entities
 
         public int SortOrder { get; set; }
 
-        public int FileSize { get; set; }
+        public long FileSize { get; set; }
 
         public Product Product { get; set; }
     }

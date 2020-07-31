@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Microsoft.AspNetCore.Http;
 
-namespace ShoppingSolution.Application.Catalog.Products.Dtos.Manage
+namespace ShoppingSolution.ViewModels.Catalog.Products.Manage
 {
     public class ProductCreateRequest
     {
+        public int Id { set; get; }
+
         public decimal Price { set; get; }
 
         public decimal OriginalPrice { set; get; }
@@ -25,5 +25,7 @@ namespace ShoppingSolution.Application.Catalog.Products.Dtos.Manage
         public string SeoAlias { get; set; }
 
         public string LanguageId { set; get; }
+
+        public IFormFile ThumbnailImage { get; set; }
     }
 }
