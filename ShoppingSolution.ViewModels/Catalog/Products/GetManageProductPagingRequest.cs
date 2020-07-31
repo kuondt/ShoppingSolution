@@ -1,9 +1,9 @@
 ﻿using ShoppingSolution.ViewModels.Common;
 using System.Collections.Generic;
 
-namespace ShoppingSolution.ViewModels.Catalog.Products.Manage
+namespace ShoppingSolution.ViewModels.Catalog.Products
 {
-    public class GetProductPagingRequest : PagingRequestBase
+    public class GetManageProductPagingRequest : PagingRequestBase
     {
         public string Keyword { get; set; }
 

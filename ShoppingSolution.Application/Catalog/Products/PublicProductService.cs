@@ -7,7 +7,6 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using ShoppingSolution.ViewModels.Common;
 using ShoppingSolution.ViewModels.Catalog.Products;
-using ShoppingSolution.ViewModels.Catalog.Products.Public;
 
 namespace ShoppingSolution.Application.Catalog.Products
 {
@@ -19,7 +18,7 @@ namespace ShoppingSolution.Application.Catalog.Products
             _context = context;
         }
 
-        public async Task<PagedResult<ProductViewModel>> GetAllByCategoryId(GetProductPagingRequest request)
+        public async Task<PagedResult<ProductViewModel>> GetAllByCategoryId(GetPublicProductPagingRequest request)
         {
             //1. Select join
             var query = from p in _context.Products

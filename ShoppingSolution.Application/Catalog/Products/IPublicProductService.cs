@@ -1,5 +1,4 @@
 ﻿using ShoppingSolution.ViewModels.Catalog.Products;
-using ShoppingSolution.ViewModels.Catalog.Products.Public;
 using ShoppingSolution.ViewModels.Common;
 using System;
 using System.Collections.Generic;
@@ -10,6 +9,6 @@ namespace ShoppingSolution.Application.Catalog.Products
 {
     public interface IPublicProductService
     {
-        Task<PagedResult<ProductViewModel>> GetAllByCategoryId(GetProductPagingRequest request);
+        Task<PagedResult<ProductViewModel>> GetAllByCategoryId(GetPublicProductPagingRequest request);
     }
 }
