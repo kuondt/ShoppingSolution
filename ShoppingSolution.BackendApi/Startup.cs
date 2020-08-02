@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,7 +13,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using ShoppingSolution.Application.Catalog.Products;
 using ShoppingSolution.Application.Common;
+using ShoppingSolution.Application.System.Users;
 using ShoppingSolution.Data.EF;
+using ShoppingSolution.Data.Entities;
 using ShoppingSolution.Ultilities.Contants;
 
 namespace ShoppingSolution.BackendApi
@@ -32,10 +35,20 @@ namespace ShoppingSolution.BackendApi
             services.AddDbContext<ShoppingDBContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString(SystemContants.MainConnectString)));
 
+            services.AddIdentity<AppUser, AppRole>()
+                .AddEntityFrameworkStores<ShoppingDBContext>()
+                .AddDefaultTokenProviders();
+
+
             //Declare DI
             services.AddTransient<IStorageService, FileStorageService>();
             services.AddTransient<IPublicProductService, PublicProductService>();
             services.AddTransient<IManageProductService, MangeProductService>();
+            services.AddTransient<UserManager<AppUser>, UserManager<AppUser>>();
+            services.AddTransient<SignInManager<AppUser>, SignInManager<AppUser>>();
+            services.AddTransient<RoleManager<AppRole>, RoleManager<AppRole>>();
+            services.AddTransient<IUserService, UserService>();
+
 
 
             services.AddSwaggerGen(c =>
