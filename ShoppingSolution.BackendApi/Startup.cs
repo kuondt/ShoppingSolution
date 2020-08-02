@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -19,6 +21,7 @@ using ShoppingSolution.Application.System.Users;
 using ShoppingSolution.Data.EF;
 using ShoppingSolution.Data.Entities;
 using ShoppingSolution.Ultilities.Contants;
+using ShoppingSolution.ViewModels.Catalog.System.Users;
 
 namespace ShoppingSolution.BackendApi
 {
@@ -51,8 +54,10 @@ namespace ShoppingSolution.BackendApi
             services.AddTransient<RoleManager<AppRole>, RoleManager<AppRole>>();
             services.AddTransient<IUserService, UserService>();
 
+            //services.AddTransient<IValidator<LoginRequest>, LoginRequestValidator>();
+            //services.AddTransient<IValidator<RegisterRequest>, RegisterRequestValidator>();
 
-            services.AddControllers();
+            services.AddControllers().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>());
 
             services.AddSwaggerGen(c =>
             {
