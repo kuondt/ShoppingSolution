@@ -2,12 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ShoppingSolution.ViewModels.Catalog.System.Users;
+using ShoppingSolution.ViewModels.Services;
 
 namespace ShoppingSolution.AdminApp
 {
@@ -23,7 +27,30 @@ namespace ShoppingSolution.AdminApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddHttpClient();
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/User/Login";
+                    options.AccessDeniedPath = "/User/Forbidden/";
+                });
+
+            services.AddControllersWithViews()
+                    .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>());
+
+            services.AddTransient<IUserApiClient, UserApiClient>();
+
+            IMvcBuilder builder = services.AddRazorPages(); 
+
+            var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
+            #if DEBUG
+            if (environment == Environments.Development)
+            {
+                builder.AddRazorRuntimeCompilation();
+            }
+            #endif
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,6 +68,8 @@ namespace ShoppingSolution.AdminApp
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseAuthentication();
 
             app.UseRouting();
 
