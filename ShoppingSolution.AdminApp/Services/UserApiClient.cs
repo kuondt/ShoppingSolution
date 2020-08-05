@@ -31,7 +31,7 @@ namespace ShoppingSolution.ViewModels.Services
 
             var client = _httpClientFactory.CreateClient();
 
-            client.BaseAddress = new Uri(_configuration["BaseAdress"]);
+            client.BaseAddress = new Uri(_configuration["BaseAddress"]);
 
             var response = await client.PostAsync("/api/users/authenticate", httpContent);
 
@@ -45,7 +45,7 @@ namespace ShoppingSolution.ViewModels.Services
            
             var client = _httpClientFactory.CreateClient();
 
-            client.BaseAddress = new Uri(_configuration["BaseAdress"]);
+            client.BaseAddress = new Uri(_configuration["BaseAddress"]);
 
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", request.BearerToken);
 
@@ -63,7 +63,7 @@ namespace ShoppingSolution.ViewModels.Services
         {
             var client = _httpClientFactory.CreateClient();
 
-            client.BaseAddress = new Uri(_configuration["BaseAdress"]);
+            client.BaseAddress = new Uri(_configuration["BaseAddress"]);
 
             var json = JsonConvert.SerializeObject(registerRequest);
 
