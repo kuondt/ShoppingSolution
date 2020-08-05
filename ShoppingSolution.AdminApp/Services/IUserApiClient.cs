@@ -13,5 +13,7 @@ namespace ShoppingSolution.ViewModels.Services
 
         Task<PagedResult<UserViewModel>> GetUsersPaging(GetUserPagingRequest request);
 
+        Task<bool> RegisterUser(RegisterRequest registerRequest);
     }
+
 }

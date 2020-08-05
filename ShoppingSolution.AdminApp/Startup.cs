@@ -32,7 +32,7 @@ namespace ShoppingSolution.AdminApp
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
-                    options.LoginPath = "/User/Login";
+                    options.LoginPath = "/Login";
                     options.AccessDeniedPath = "/User/Forbidden/";
                 });
 
