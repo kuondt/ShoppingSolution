@@ -31,7 +31,7 @@ namespace ShoppingSolution.BackendApi.Controllers
 
             var resultToken = await _userService.Authencate(request);
 
-            if (string.IsNullOrEmpty(resultToken))
+            if (string.IsNullOrEmpty(resultToken.ResultObj))
             {
                 return BadRequest("Username or password is incorrect.");
             }
@@ -46,11 +46,26 @@ namespace ShoppingSolution.BackendApi.Controllers
                 return BadRequest(ModelState);
 
             var result = await _userService.Register(request);
-            if (!result)
+            if (!result.IsSuccessed)
             {
-                return BadRequest("Register is unsuccessful.");
+                return BadRequest(result.Message);
             }
-            return Ok();
+            return Ok(result);
+        }
+
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(Guid id, [FromBody] RegisterRequest request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _userService.Register(request);
+            if (!result.IsSuccessed)
+            {
+                return BadRequest(result.Message);
+            }
+            return Ok(result);
         }
 
         //https://localhost/api/users/paging?pageIndex=1$pageSize=10&keyword=
