@@ -65,7 +65,7 @@ namespace ShoppingSolution.Application.System.Users
 
         public async Task<ApiResult<UserViewModel>> GetById(Guid id)
         {
-            var user = await _userManager.FindByNameAsync(id.ToString());
+            var user = await _userManager.FindByIdAsync(id.ToString());
             if (user == null)
             {
                 return new ApiErrorResult<UserViewModel>("User không tồn tại");
