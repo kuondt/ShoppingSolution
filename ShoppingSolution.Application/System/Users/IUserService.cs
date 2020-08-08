@@ -16,7 +16,9 @@ namespace ShoppingSolution.Application.System.Users
 
         Task<ApiResult<bool>> Update(Guid id, UserUpdateRequest request);
 
-
         Task<ApiResult<PagedResult<UserViewModel>>> GetUserPaging(GetUserPagingRequest request);
+
+        Task<ApiResult<UserViewModel>> GetById(Guid id);
+
     }
 }

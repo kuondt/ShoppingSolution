@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -21,6 +22,7 @@ namespace ShoppingSolution.Application.System.Users
         private readonly SignInManager<AppUser> _signInManager;
         private readonly RoleManager<AppRole> _roleManager;
         private readonly IConfiguration _config;
+
 
         public UserService(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager,
             RoleManager<AppRole> roleManager, IConfiguration config)
@@ -60,6 +62,27 @@ namespace ShoppingSolution.Application.System.Users
 
             return new ApiSuccessResult<string>(new JwtSecurityTokenHandler().WriteToken(token));
         }
+
+        public async Task<ApiResult<UserViewModel>> GetById(Guid id)
+        {
+            var user = await _userManager.FindByNameAsync(id.ToString());
+            if (user == null)
+            {
+                return new ApiErrorResult<UserViewModel>("User không tồn tại");
+            }
+            var userVM = new UserViewModel()
+            {
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                UserName = user.UserName,
+                FirstName = user.FirstName,
+                Dob = user.Dob,
+                Id = user.Id,
+                LastName = user.LastName
+            };
+            return new ApiSuccessResult<UserViewModel>(userVM);
+        }
+
 
         public async Task<ApiResult<PagedResult<UserViewModel>>> GetUserPaging(GetUserPagingRequest request)
         {
@@ -145,6 +168,6 @@ namespace ShoppingSolution.Application.System.Users
             }
             return new ApiErrorResult<bool>("Cập nhật không thành công");
         }
-     
+
     }
 }

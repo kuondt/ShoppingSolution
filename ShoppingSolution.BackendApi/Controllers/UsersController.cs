@@ -29,13 +29,13 @@ namespace ShoppingSolution.BackendApi.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var resultToken = await _userService.Authencate(request);
+            var result = await _userService.Authencate(request);
 
-            if (string.IsNullOrEmpty(resultToken.ResultObj))
+            if (string.IsNullOrEmpty(result.ResultObj))
             {
-                return BadRequest("Username or password is incorrect.");
+                return BadRequest(result);
             }
-            return Ok(resultToken);
+            return Ok(result);
         }
 
         [HttpPost]
@@ -74,6 +74,13 @@ namespace ShoppingSolution.BackendApi.Controllers
         {
             var products = await _userService.GetUserPaging(request);
             return Ok(products);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(Guid id)
+        {
+            var user = await _userService.GetById(id);
+            return Ok(user);
         }
     }
 }

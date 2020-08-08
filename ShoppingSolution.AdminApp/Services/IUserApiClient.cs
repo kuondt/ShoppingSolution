@@ -15,8 +15,9 @@ namespace ShoppingSolution.ViewModels.Services
 
         Task<ApiResult<bool>> RegisterUser(RegisterRequest registerRequest);
 
-        Task<ApiResult<bool>> UpdateUser(Guid id, RegisterRequest registerRequest);
+        Task<ApiResult<bool>> UpdateUser(Guid id, UserUpdateRequest request);
 
+        Task<ApiResult<UserViewModel>> GetById(Guid id);
     }
 
 }
