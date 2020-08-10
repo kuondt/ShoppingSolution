@@ -7,6 +7,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section Scripts{ 
+    <script>
+        setTimeout(function () {
+            $("#msgAlert").fadeOut('slow');
+        }, 2000);
+    </script>
+ }
 
 <div class="container-fluid">
 
@@ -34,7 +41,7 @@
                                 <button class="btn btn-primary" type="submit">
                                     <i class="fas fa-search fa-sm"></i>
                                 </button>
-                            <button class="btn btn-outline-dark" onclick="window.location.href='/User/Index'" type="submit">Xóa</button>
+                                <button class="btn btn-outline-dark" onclick="window.location.href='/User/Index'" type="submit">Xóa</button>
                             </div>
                         </div>
                     </form>
@@ -42,6 +49,12 @@
             </div>
         </div>
         <div class="card-body">
+            @if (ViewBag.SuccessMessage != null)
+            {
+                <div id="msgAlert" class="alert alert-success" role="alert">
+                    @ViewBag.SuccessMessage
+                </div>
+            }
             <div class="row">
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">

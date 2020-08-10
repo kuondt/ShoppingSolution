@@ -37,7 +37,14 @@ namespace ShoppingSolution.AdminApp.Controllers
                 PageSize = pageSize
             };
             var data = await _userApiClient.GetUsersPaging(request);
+
             ViewBag.Keyword = keyword;
+
+            if(TempData["result"] != null)
+            {
+                ViewBag.SuccessMessage = TempData["Thêm thành công"];
+            }
+
             return View(data.ResultObj);
         }
 
@@ -55,7 +62,10 @@ namespace ShoppingSolution.AdminApp.Controllers
 
             var result = await _userApiClient.RegisterUser(request);
             if (result.IsSuccessed)
+            {
+                TempData["result"] = "Success";
                 return RedirectToAction("Index");
+            }
 
             ModelState.AddModelError("", result.Message);
             return View(request);
@@ -90,7 +100,10 @@ namespace ShoppingSolution.AdminApp.Controllers
 
             var result = await _userApiClient.UpdateUser(request.Id, request);
             if (result.IsSuccessed)
+            {
+                TempData["result"] = "Cập nhật thành công";
                 return RedirectToAction("Index");
+            }
 
             ModelState.AddModelError("", result.Message);
             return View(request);
@@ -128,7 +141,11 @@ namespace ShoppingSolution.AdminApp.Controllers
 
             var result = await _userApiClient.Delete(request.Id);
             if (result.IsSuccessed)
+            {
+                TempData["result"] = "Xóa thành công";
                 return RedirectToAction("Index");
+            }
+            
 
             ModelState.AddModelError("", result.Message);
             return View(request);
