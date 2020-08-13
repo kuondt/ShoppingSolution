@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ShoppingSolution.AdminApp.Services;
 using ShoppingSolution.ViewModels.Catalog.System.Users;
 using ShoppingSolution.ViewModels.Services;
 
@@ -46,6 +47,8 @@ namespace ShoppingSolution.AdminApp
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IUserApiClient, UserApiClient>();
+            services.AddTransient<IRoleApiClient, RoleApiClient>();
+
 
             IMvcBuilder builder = services.AddRazorPages(); 
 

@@ -17,6 +17,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using ShoppingSolution.Application.Catalog.Products;
 using ShoppingSolution.Application.Common;
+using ShoppingSolution.Application.System.Roles;
 using ShoppingSolution.Application.System.Users;
 using ShoppingSolution.Data.EF;
 using ShoppingSolution.Data.Entities;
@@ -52,6 +53,7 @@ namespace ShoppingSolution.BackendApi
             services.AddTransient<SignInManager<AppUser>, SignInManager<AppUser>>();
             services.AddTransient<RoleManager<AppRole>, RoleManager<AppRole>>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IRoleService, RoleService>();
 
             //services.AddTransient<IValidator<LoginRequest>, LoginRequestValidator>();
             //services.AddTransient<IValidator<RegisterRequest>, RegisterRequestValidator>();
