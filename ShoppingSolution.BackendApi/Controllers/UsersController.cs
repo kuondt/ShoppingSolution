@@ -62,7 +62,7 @@ namespace ShoppingSolution.BackendApi.Controllers
             var result = await _userService.Register(request);
             if (!result.IsSuccessed)
             {
-                return BadRequest(result.Message);
+                return BadRequest(result);
             }
             return Ok(result);
         }
@@ -82,7 +82,7 @@ namespace ShoppingSolution.BackendApi.Controllers
             return Ok(result);
         }
 
-        //https://localhost/api/users/paging?pageIndex=1$pageSize=10&keyword=
+        /* https://localhost/api/users/paging?pageIndex=1$pageSize=10&keyword= */
         [HttpGet("paging")]
         public async Task<IActionResult> GetAllPaging([FromQuery] GetUserPagingRequest request)
         {
